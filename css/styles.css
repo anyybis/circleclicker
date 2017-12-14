@@ -38,8 +38,9 @@ body {
   background: none;
   border: none;
   color: #424242;
-  font-family: 'Comfortaa';
-  font-size: 32px;
+  font-family: 'Trebuchet MS';
+  font-size: 42px;
+  font-weight: 600;
   transition: .6s;
 }
   #startButton:hover {
@@ -61,8 +62,9 @@ body {
   width: 64px;
   height: 64px;
   margin: 8px;
-  font-family: 'Concert One';
+  font-family: 'Trebuchet MS';
   font-size: 32px;
+  font-weight: 600;
   border-radius: 100%;
   user-select: none;
   transition: opacity .6s, transform .2s;
@@ -77,8 +79,8 @@ body {
   text-align: center;
   color: #616161;
   opacity: 0;
-  font-family: 'Comfortaa';
-  font-size: 22px;
+  font-family: 'Trebuchet MS';
+  font-size: 24px;
   white-space: nowrap;
   transition: .6s ease;
 }
