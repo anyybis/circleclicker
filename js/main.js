@@ -1,6 +1,7 @@
 /* ---------------------------------------------------- */
-/* Horribly messy circle-clicker multiplication "game"  */
-/* Cobbled together by Albert Nyberg sometime late 2017 */
+/* Horribly messy circle-clicker "game"                 */
+/* Cobbled together by A. Nyberg sometime late 2017     */
+/* Feel free to copy, modify, share, poultryize, etc.   */
 /* ---------------------------------------------------- */
 
 /* ------------------ */
@@ -64,9 +65,9 @@ let timer;
 /* Core functions */
 /* -------------- */
 
-// Currently on vacation
+// Enable start button
 function init() {
-    console.log(Circles.amt + " " + Circles.colVals);
+  Game.startButton().disabled = false;
 }
 
 // Reset circle array and game area
@@ -109,11 +110,11 @@ function restartGame() {
     + "</div>").join("")
   ;
   revealCircles();
-  setTimeout(function() {
-    targetCircle = circlesList[randInt(0, Circles.amt - 1)];
+  setTimeout(function () {
+    targetCircle = circlesList[randInt(0, circlesList.length - 1)];
     revealInfotext();
     gameTimer();
-  }, 60 * Game.circle().length);
+  }, 60 * circlesList.length);
 }
 
 // Check if the correct circle was clicked
@@ -125,19 +126,16 @@ function checkMatch(val, colVal) {
     }
     let u = 0;
     y = setInterval(function() {
-      Game.circle()[u].style.transition = ".6s ease";
       Game.circle()[u].style.opacity = "0";
       u++;
-      if (u == Game.circle().length)
+      if (u == circlesList.length) {
         clearInterval(y);
-    }, 60);
-    setTimeout(function() {
-      for (u = 0; u < Game.circle().length; u++) {
-        Game.circle()[u].style.transition = ".2s ease";
+        setTimeout(function() {
+          score += Math.round(10 * parseFloat(time));
+          restartGame();
+        }, 600);
       }
-      score += Math.round(10 * parseFloat(time));
-      restartGame();
-    }, 60 * Game.circle().length);
+    }, 60);
   }
   else {
     clearInterval(timer);
@@ -153,7 +151,7 @@ function gameTimer() {
     time -= 0.1;
     Game.timer().innerHTML = roundTo(time, 1);
     if (parseFloat(roundTo(time, 1)) <= 0) {
-      clearInterval();
+      clearInterval(timer);
       gameOver();
     }
   }, 100);
@@ -163,8 +161,7 @@ function gameTimer() {
 // Pure spaghetti at this point
 // Not quite sure what to do with it
 function gameOver() {
-  for (let c = 0; c < Game.circle().length; c++) {
-    Game.circle()[c].style.transition = ".6s ease";
+  for (let c = 0; c < circlesList.length; c++) {
     Game.circle()[c].style.opacity = "0";
   }
   for (let v = 0; v < Game.infotext().length; v++) {
@@ -205,7 +202,12 @@ function gameOver() {
 // Reveal infotext
 function revealInfotext() {
   Game.score().innerHTML = "<span>Score: <span style='color:#52BE80'>" + score + "</span></span>";
-  Game.objective().innerHTML = "<span>Find the <span style='color:" + Circles.colVals[randInt(0, Circles.colVals.length - 1)] + ";'>" + targetCircle.colName + " </span>" + targetCircle.val1 + " * " + targetCircle.val2 + "</span>";
+  Game.objective().innerHTML = "<span>Find the <span style='color:"
+    + Circles.colVals[randInt(0, Circles.colVals.length - 1)] + ";'>"
+    + targetCircle.colName + " </span> circle "
+    + targetCircle.val1 + " * "
+    + targetCircle.val2 + "</span>"
+  ;
   for (let b = 0; b < Game.infotext().length; b++) {
     Game.infotext()[b].style.opacity = "1";
   }
@@ -227,19 +229,14 @@ function boardSetup() {
 // Fade in the circles in succession
 function revealCircles() {
   let n = 0;
+  let g = 0;
   m = setInterval(function() {
-    Game.circle()[n].style.transition = ".6s ease";
     Game.circle()[n].style.opacity = "1";
     n++;
-    if (n == Game.circle().length)
+    if (n == circlesList.length) {
       clearInterval(m);
-  }, 60);
-  setTimeout(function() {
-    for (n = 0; n < Game.circle().length; n++) {
-      Game.circle()[n].style.transition = ".2s ease";
     }
-
-  }, 60 * Game.circle().length);
+  }, 60);
 }
 
 /* ---------------- */
