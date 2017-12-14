@@ -1,7 +1,6 @@
 html {
   background-color: #212121;
   color: #EEE;
-  font-family: 'Trebuchet MS';
   font-size: 0;
 }
 
@@ -28,7 +27,7 @@ body {
   padding: 8px;
   border: 8px solid #424242;
   border-radius: 16px;
-  transition: .6s ease;
+  transition: .6s;
 }
 
 #startButton {
@@ -39,9 +38,9 @@ body {
   background: none;
   border: none;
   color: #424242;
-  font-size: 36px;
-  font-weight: 600;
-  transition: .6s ease;
+  font-family: 'Comfortaa';
+  font-size: 32px;
+  transition: .6s;
 }
   #startButton:hover {
     color: #52BE80;
@@ -62,11 +61,11 @@ body {
   width: 64px;
   height: 64px;
   margin: 8px;
-  font-size: 28px;
-  font-weight: 600;
+  font-family: 'Concert One';
+  font-size: 32px;
   border-radius: 100%;
   user-select: none;
-  transition: .2s ease;
+  transition: opacity .6s, transform .2s;
 }
   .game-circle:hover {
     transform: scale(1.1);
@@ -78,25 +77,26 @@ body {
   text-align: center;
   color: #616161;
   opacity: 0;
-  font-size: 24px;
+  font-family: 'Comfortaa';
+  font-size: 22px;
   white-space: nowrap;
   transition: .6s ease;
 }
   #game-objective {
     text-align: center;
     width: 100%;
-    transition: .6s ease;
+    transition: opacity .6s;
   }
   #game-score {
     text-align: left;
     width: 45%;
     padding-left: 5%;
-    transition: .6s ease;
+    transition: opacity .6s;
   }
   #game-timer {
     text-align: right;
     width: 45%;
     padding-right: 5%;
     color: #E74C3C;
-    transition: .6s ease;
+    transition: opacity .6s;
   }
