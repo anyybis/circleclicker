@@ -103,14 +103,14 @@ function restartGame() {
     circlesList[z] = new Circle(randInt(2, 9), randInt(2, 9), Circles.colVals[randInt(0, Circles.colVals.length - 1)]);
   }
   Game.area().innerHTML = circlesList.map(
-    x => "<div class='game-circle' style='background-color:"
+    x => "<button class='game-circle' style='background-color:"
     + x.colVal
-    + ";opacity:0;' onclick='checkMatch(\"" + x.val1 * x.val2 + "\", \"" + x.colVal  + "\");'>"
+    + ";opacity:0;' onclick='checkMatch(\"" + x.val1 * x.val2 + "\", \"" + x.colVal  + "\");' disabled>"
     + x.val1 * x.val2
-    + "</div>").join("")
+    + "</button>").join("")
   ;
   revealCircles();
-  setTimeout(function () {
+  setTimeout(function() {
     targetCircle = circlesList[randInt(0, circlesList.length - 1)];
     revealInfotext();
     gameTimer();
@@ -119,6 +119,9 @@ function restartGame() {
 
 // Check if the correct circle was clicked
 function checkMatch(val, colVal) {
+  for (let i = 0; i < circlesList.length; i++) {
+    Game.circle()[i].disabled = true;
+  }
   if (val == targetCircle.val1 * targetCircle.val2 && colVal == targetCircle.colVal) {
     clearInterval(timer);
     for (let p = 0; p < Game.infotext().length; p++) {
@@ -157,12 +160,13 @@ function gameTimer() {
   }, 100);
 }
 
-// Handles game over
+// Handles game overs
 // Pure spaghetti at this point
 // Not quite sure what to do with it
 function gameOver() {
   for (let c = 0; c < circlesList.length; c++) {
     Game.circle()[c].style.opacity = "0";
+    Game.circle()[c].removeAttribute("onclick");
   }
   for (let v = 0; v < Game.infotext().length; v++) {
     Game.infotext()[v].style.opacity = "0";
@@ -234,6 +238,9 @@ function revealCircles() {
     Game.circle()[n].style.opacity = "1";
     n++;
     if (n == circlesList.length) {
+      for (let i = 0; i < circlesList.length; i++) {
+        Game.circle()[i].disabled = false;
+      }
       clearInterval(m);
     }
   }, 60);
